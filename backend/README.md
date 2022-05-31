@@ -33,6 +33,7 @@
 <summary>Character CRUD</summary>
 <div markdown="1">
 
+- Search Character infomation
 - Create Character in User
 - Delete Character
 - synchronization Character info
