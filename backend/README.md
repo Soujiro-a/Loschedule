@@ -9,10 +9,12 @@
 ## :computer: 2. 사용 기술 
 - [nestJS](https://nestjs.com/)
     - version : 8.2.6
+- [mongoose](https://mongoosejs.com/)
+    - version : 6.3.4
 
 ## :hammer: 3. ERD
 
-![LoscheduleERD](https://user-images.githubusercontent.com/68040092/170011614-517e392e-5b34-4749-812e-4b2679e3e47d.PNG)
+![LoscheduleERD](https://user-images.githubusercontent.com/68040092/172323557-8ca04f48-998f-471d-817e-d23e6f335e39.png)
 
 ## :dart: 4. 구현 기능
 
@@ -58,7 +60,7 @@
 <summary>Raid CRUD</summary>
 <div markdown="1">
 
-- Create Raid (only leader)
+- Create Raid
 - Delete Raid (only leader)
 - Edit Raid (only leader)
 - Read Raid
@@ -119,6 +121,21 @@ Array를 취급하듯이 filter를 사용해서 지우려는 캐릭터 Id와 일
 정상적으로 작동하였다.
 
 이후, 일관성을 주기위해 등록할 때도 $push 쿼리를 사용하여 값을 등록하도록 변경하였다.
+```
+
+</div>
+</details>
+
+<details>
+<summary>레이드 일정등록시 특정 날짜 입력 문제</summary>
+<div markdown="1">
+
+```
+처음에 팀(공격대)에서 레이드 일정을 등록할 때, 날짜를 지정하는 거니까 Date 타입으로 저장해야겠다고 생각했다.
+
+그런데, Date 타입으로 저장하면 불필요한 시간이 모두 저장되어버리는 문제도 있었지만, 무엇보다 KST(한국 표준 시간)로 제대로 저장이 되지 않았다.
+
+추후 프론트를 만들면서 바뀔 여지도 분명 있겠지만, 우선은 날짜, 시간, 분까지만 저장하고 화면에 출력하게 되지 않을까 하는 생각이고, 그렇게 만들려고 한다면 mongodb에서 Date 타입 대신 string 타입으로 지정 후 YYYY-MM-DD HH:mm 포맷을 통해 내가 생각했던 방법대로 저장할 수 있었다.
 ```
 
 </div>
