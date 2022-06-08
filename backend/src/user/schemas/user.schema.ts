@@ -32,7 +32,10 @@ export class User extends Document {
   comparePassword: (plainPassword: string) => Promise<boolean>;
 
   @Prop([{ type: SchemaTypes.ObjectId, ref: 'Character' }])
-  characters: ObjectId[];
+  characters?: ObjectId[];
+
+  @Prop([{ type: SchemaTypes.ObjectId, ref: 'Team' }])
+  teams?: ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
