@@ -49,8 +49,11 @@
 
 - Create Team
 - Delete Team (only leader)
-- invite User (only leader)
-- Change Leader (only leader)
+- Edit Team
+    - Change Leader (only leader)
+    - join Team member
+    - Leave Team member
+- Read Team members
 - Read Raids
 
 </div>
@@ -136,6 +139,31 @@ Array를 취급하듯이 filter를 사용해서 지우려는 캐릭터 Id와 일
 그런데, Date 타입으로 저장하면 불필요한 시간이 모두 저장되어버리는 문제도 있었지만, 무엇보다 KST(한국 표준 시간)로 제대로 저장이 되지 않았다.
 
 추후 프론트를 만들면서 바뀔 여지도 분명 있겠지만, 우선은 날짜, 시간, 분까지만 저장하고 화면에 출력하게 되지 않을까 하는 생각이고, 그렇게 만들려고 한다면 mongodb에서 Date 타입 대신 string 타입으로 지정 후 YYYY-MM-DD HH:mm 포맷을 통해 내가 생각했던 방법대로 저장할 수 있었다.
+```
+
+</div>
+</details>
+
+<details>
+<summary>같은 필드내에서 $push, $pull 연산자를 동시에 사용할 수 없는 문제</summary>
+<div markdown="1">
+
+```
+팀에 리더를 교체하는 함수를 작성하는 과정에서 발생한 문제다.
+
+teamModel에서 updateOne 메소드를 통해 리더를 새 유저로 교체하고, 새 유저는 멤버 필드내에서 빼내고, 기존 리더를 멤버 필드로 삽입하는 작업을 구현중이었다.
+
+MongoServerError: Updating the path 'members' would create a conflict at 'members'
+그러던 중 나는 위와 같은 오류를 마주했고, 구글링을 하다가 스택오버플로우의 질문글을 보고 답을 찾을 수 있었다.
+https://stackoverflow.com/questions/24300148/pull-and-addtoset-at-the-same-time-with-mongo
+
+The issue is that MongoDB doesn’t allow multiple operations on the same property in the same update call. This means that the two operations must happen in two individually atomic operations.
+
+요약하자면, 하나의 업데이트 호출에서 같은 속성(여기선 필드라고 봐도 될 것 같다)에 대한 여러 작업을 지원하지 않는다는 이야기였다.
+
+나는 members 필드내에서 기존 멤버를 빼내는 작업과, 세 맴버(기존 리더)를 넣는 작업을 동시에 수행하려고 하여 오류가 발생했다.
+그래서, 두 작업을 코드를 나누어 작성하여 문제를 해결할 수 있었다.
+
 ```
 
 </div>
