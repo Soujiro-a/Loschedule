@@ -157,7 +157,8 @@ MongoServerError: Updating the path 'members' would create a conflict at 'member
 그러던 중 나는 위와 같은 오류를 마주했고, 구글링을 하다가 스택오버플로우의 질문글을 보고 답을 찾을 수 있었다.
 https://stackoverflow.com/questions/24300148/pull-and-addtoset-at-the-same-time-with-mongo
 
-The issue is that MongoDB doesn’t allow multiple operations on the same property in the same update call. This means that the two operations must happen in two individually atomic operations.
+The issue is that MongoDB doesn’t allow multiple operations on the same property in the same update call. 
+This means that the two operations must happen in two individually atomic operations.
 
 요약하자면, 하나의 업데이트 호출에서 같은 속성(여기선 필드라고 봐도 될 것 같다)에 대한 여러 작업을 지원하지 않는다는 이야기였다.
 
