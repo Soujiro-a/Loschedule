@@ -53,8 +53,10 @@
     - Change Leader (only leader)
     - join Team member
     - Leave Team member
-- Read Team members
-- Read Raids
+- Read Team
+    - Team members info
+    - leader info
+    - raids info
 
 </div>
 </details>
@@ -66,7 +68,14 @@
 - Create Raid
 - Delete Raid (only leader)
 - Edit Raid (only leader)
+    - change boss
+    - change date
+    - join character
+    - leave character
 - Read Raid
+    - bossName
+    - targetDate
+    - characters
 
 </div>
 </details>
