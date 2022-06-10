@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { AuthUser } from 'src/auth/auth-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { CreateUserInput, CreateUserOutput } from './dtos/create-user.dto';
 import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserProfileOutput } from './dtos/user-profile.dto';
+import { User } from './schemas/user.schema';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -29,11 +30,16 @@ export class UserController {
   @Patch()
   @Role(['any'])
   editProfile(
-    @Req() request: Request,
+    @AuthUser() user: User,
     @Body() editUserInput: EditUserInput,
   ): Promise<EditUserOutput> {
-    return this.userService.editProfile(request, editUserInput);
+    console.log(user);
+    return this.userService.editProfile(user, editUserInput);
   }
 
-  // me
+  @Get()
+  @Role(['any'])
+  me(@AuthUser() user: User) {
+    return user;
+  }
 }

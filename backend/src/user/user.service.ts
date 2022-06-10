@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Request } from 'express';
 import { Model } from 'mongoose';
-import { X_JWT } from 'src/common/common.constants';
 import { JwtService } from 'src/jwt/jwt.service';
 import { CreateUserInput, CreateUserOutput } from './dtos/create-user.dto';
 import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
@@ -93,14 +91,10 @@ export class UserService {
   }
 
   async editProfile(
-    request: Request,
+    { _id: userId }: User,
     { nickname, password }: EditUserInput,
   ): Promise<EditUserOutput> {
-    const { id: userId } = this.jwtService.verify(
-      request.headers[X_JWT].toString(),
-    );
-
-    const findUserById = await this.findById(userId);
+    const findUserById = await this.findById(String(userId));
     if (!findUserById) {
       return {
         ok: false,
