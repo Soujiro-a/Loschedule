@@ -69,18 +69,43 @@ export class UserService {
 
   async getProfile(nickname: string): Promise<UserProfileOutput> {
     try {
-      const findUser = await this.findByNickname(nickname);
-      if (!findUser) {
-        return {
-          ok: false,
-          error: '존재하지 않는 유저입니다.',
-        };
-      }
+      const [findUser] = await this.userModel.aggregate([
+        {
+          $match: {
+            nickname,
+          },
+        },
+        {
+          $lookup: {
+            from: 'characters',
+            localField: 'characters',
+            foreignField: '_id',
+            as: 'charactersInfo',
+          },
+        },
+        {
+          $lookup: {
+            from: 'teams',
+            localField: 'teams',
+            foreignField: '_id',
+            as: 'teamsInfo',
+          },
+        },
+        {
+          $project: {
+            nickname: 1,
+            role: 1,
+            characters: '$charactersInfo',
+            teams: '$teamsInfo',
+          },
+        },
+      ]);
 
       return {
         ok: true,
         nickname,
-        // 추후 보유 캐릭 목록도 같이 반환
+        characters: findUser.characters,
+        teams: findUser.teams,
       };
     } catch {
       return {

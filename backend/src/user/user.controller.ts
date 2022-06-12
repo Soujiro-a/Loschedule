@@ -33,7 +33,6 @@ export class UserController {
     @AuthUser() user: User,
     @Body() editUserInput: EditUserInput,
   ): Promise<EditUserOutput> {
-    console.log(user);
     return this.userService.editProfile(user, editUserInput);
   }
 
