@@ -178,3 +178,22 @@ This means that the two operations must happen in two individually atomic operat
 
 </div>
 </details>
+
+<details>
+<summary>중첩 스키마(nestes schema) 작성 문제</summary>
+<div markdown="1">
+
+```
+레이드 스키마 내에 캐릭터 정보가 최대 8명까지만 저장되기 때문에
+다른 필드들처럼 ObjectId만 저장해놓는게 아닌, 필요한 캐릭터 정보들을 저장해두어도 Document의 크기에 큰 지장이 없을 것이라 생각했다.
+그리고, 추후 데이터를 불러올 때 populate를 안해도 되서 성능 향상에 도움이 될 것이라 생각했다.
+
+이러한 이유로, 중첩 스키마를 작성하려고했는데, 구글링으로는 nestjs로 작성한 중첩 스키마에 대한 정보를 찾기가 힘들었다.
+나는 캐릭터 필드의 모든 정보를 저장하고 싶은게 아닌, 내가 원하는 정보들만 선택해서 넣고 싶었는데 원하는 정보가 나오지 않았다.
+
+그래서 내가 할 수 있는 방법이라곤 Prop 데코레이터에 내가 원하는 데이터의 타입을 하나씩 지정해놓으면 될 것 같아 작성하는 것 뿐이었는데, 다행히 원하는 결과를 얻을 수 있었다.
+
+```
+
+</div>
+</details>
