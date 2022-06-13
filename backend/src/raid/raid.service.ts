@@ -7,6 +7,7 @@ import { User } from 'src/user/schemas/user.schema';
 import { CreateRaidInput, CreateRaidOutput } from './dtos/create-raid.dto';
 import { DeleteRaidInput, DeleteRaidOutput } from './dtos/delete-raid.dto';
 import { EditRaidInput, EditRaidOutput } from './dtos/edit-raid.dto';
+import { GetRaidInput, GetRaidOutput } from './dtos/get-raid.dto';
 import { Raid } from './schemas/raid.schema';
 
 @Injectable()
@@ -174,6 +175,55 @@ export class RaidService {
       return {
         ok: false,
         error: e.message || '일정 수정에 실패하였습니다.',
+      };
+    }
+  }
+
+  async get(
+    { _id: userId }: User,
+    { raidId, teamId }: GetRaidInput,
+  ): Promise<GetRaidOutput> {
+    try {
+      const findRaid = await this.raidModel.findOne({ _id: raidId }).lean();
+      if (!findRaid) {
+        return {
+          ok: false,
+          error: '존재하지 않는 일정입니다.',
+        };
+      }
+
+      const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
+      if (!findTeam) {
+        return {
+          ok: false,
+          error: '존재하지 않는 팀입니다.',
+        };
+      }
+
+      if (
+        String(findTeam.leader) === String(userId) ||
+        findTeam.members.find((memberId) => String(memberId) === String(userId))
+      ) {
+        return {
+          ok: true,
+          characters: findRaid.characters,
+          bossName: findRaid.bossName,
+          targetDate: findRaid.targetDate,
+        };
+      } else {
+        return {
+          ok: false,
+          error: '팀에 속해있는 멤버들만 조회가 가능한 정보입니다.',
+        };
+      }
+
+      return {
+        ok: true,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: '레이드 정보 조회에 실패하였습니다.',
       };
     }
   }

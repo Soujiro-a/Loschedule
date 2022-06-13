@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { AuthUser } from 'src/auth/auth-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { User } from 'src/user/schemas/user.schema';
 import { CreateRaidInput, CreateRaidOutput } from './dtos/create-raid.dto';
 import { DeleteRaidInput, DeleteRaidOutput } from './dtos/delete-raid.dto';
 import { EditRaidInput, EditRaidOutput } from './dtos/edit-raid.dto';
+import { GetRaidInput, GetRaidOutput } from './dtos/get-raid.dto';
 import { RaidService } from './raid.service';
 
 @Controller('raid')
@@ -36,5 +37,14 @@ export class RaidController {
     @Body() editRaidInput: EditRaidInput,
   ): Promise<EditRaidOutput> {
     return this.raidService.edit(user, editRaidInput);
+  }
+
+  @Get()
+  @Role(['any'])
+  get(
+    @AuthUser() user: User,
+    @Body() getRaidInput: GetRaidInput,
+  ): Promise<GetRaidOutput> {
+    return this.raidService.get(user, getRaidInput);
   }
 }
