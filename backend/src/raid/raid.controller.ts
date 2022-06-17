@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthUser } from 'src/auth/auth-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { User } from 'src/user/schemas/user.schema';
@@ -39,12 +47,13 @@ export class RaidController {
     return this.raidService.edit(user, editRaidInput);
   }
 
-  @Get()
+  @Get(':id')
   @Role(['any'])
   get(
     @AuthUser() user: User,
+    @Param('id') raidId: string,
     @Body() getRaidInput: GetRaidInput,
   ): Promise<GetRaidOutput> {
-    return this.raidService.get(user, getRaidInput);
+    return this.raidService.get(user, raidId, getRaidInput);
   }
 }

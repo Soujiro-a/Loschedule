@@ -181,7 +181,8 @@ export class RaidService {
 
   async get(
     { _id: userId }: User,
-    { raidId, teamId }: GetRaidInput,
+    raidId: string,
+    { teamId }: GetRaidInput,
   ): Promise<GetRaidOutput> {
     try {
       const findRaid = await this.raidModel.findOne({ _id: raidId }).lean();
@@ -197,6 +198,13 @@ export class RaidService {
         return {
           ok: false,
           error: '존재하지 않는 팀입니다.',
+        };
+      }
+
+      if (!findTeam.raids.find((teamraidId) => String(teamraidId) === raidId)) {
+        return {
+          ok: false,
+          error: '해당 팀이 가지고 있는 레이드 정보만 조회할 수 있습니다.',
         };
       }
 

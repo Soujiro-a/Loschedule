@@ -4,10 +4,6 @@ import { CoreOutput } from 'src/common/dtos/output.dto';
 export class GetRaidInput {
   @IsString()
   @IsNotEmpty()
-  readonly raidId: string;
-
-  @IsString()
-  @IsNotEmpty()
   readonly teamId: string;
 }
 
