@@ -5,10 +5,6 @@ export class DeleteRaidInput {
   @IsString()
   @IsNotEmpty()
   readonly teamId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly raidId: string;
 }
 
 export class DeleteRaidOutput extends CoreOutput {}

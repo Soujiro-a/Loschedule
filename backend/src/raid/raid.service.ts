@@ -77,7 +77,8 @@ export class RaidService {
 
   async delete(
     { _id: userId }: User,
-    { teamId, raidId }: DeleteRaidInput,
+    raidId: string,
+    { teamId }: DeleteRaidInput,
   ): Promise<DeleteRaidOutput> {
     try {
       const findRaid = await this.raidModel.findOne({ _id: raidId }).lean();
@@ -120,7 +121,8 @@ export class RaidService {
 
   async edit(
     { _id: userId }: User,
-    { raidId, bossName, targetDate, characters }: EditRaidInput,
+    raidId: string,
+    { bossName, targetDate, characters }: EditRaidInput,
   ): Promise<EditRaidOutput> {
     try {
       const findRaid = await this.raidModel.findOne({ _id: raidId });

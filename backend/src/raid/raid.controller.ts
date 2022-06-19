@@ -29,22 +29,24 @@ export class RaidController {
     return this.raidService.create(user, createRaidInput);
   }
 
-  @Delete()
+  @Delete(':id')
   @Role(['any'])
   delete(
     @AuthUser() user: User,
+    @Param('id') raidId: string,
     @Body() deleteRaidInput: DeleteRaidInput,
   ): Promise<DeleteRaidOutput> {
-    return this.raidService.delete(user, deleteRaidInput);
+    return this.raidService.delete(user, raidId, deleteRaidInput);
   }
 
-  @Patch()
+  @Patch(':id')
   @Role(['any'])
   edit(
     @AuthUser() user: User,
+    @Param('id') raidId: string,
     @Body() editRaidInput: EditRaidInput,
   ): Promise<EditRaidOutput> {
-    return this.raidService.edit(user, editRaidInput);
+    return this.raidService.edit(user, raidId, editRaidInput);
   }
 
   @Get(':id')
