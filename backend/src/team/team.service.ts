@@ -7,11 +7,11 @@ import {
   ChangeLeaderOutput,
 } from './dtos/change-leader.dto';
 import { CreateTeamInput, CreateTeamOutput } from './dtos/create-team.dto';
-import { DeleteTeamInput, DeleteTeamOutput } from './dtos/delete-team.dto';
-import { GetMembersInput, GetMembersOutput } from './dtos/get-members.dto';
-import { GetRaidsInput, GetRaidsOutput } from './dtos/get-raids.dto';
-import { JoinTeamInput, JoinTeamOutput } from './dtos/join-team.dto';
-import { LeaveTeamInput, LeaveTeamOutput } from './dtos/leave-team.dto';
+import { DeleteTeamOutput } from './dtos/delete-team.dto';
+import { GetMembersOutput } from './dtos/get-members.dto';
+import { GetRaidsOutput } from './dtos/get-raids.dto';
+import { JoinTeamOutput } from './dtos/join-team.dto';
+import { LeaveTeamOutput } from './dtos/leave-team.dto';
 import { Team } from './schemas/team.schema';
 
 @Injectable()
@@ -58,7 +58,7 @@ export class TeamService {
 
   async delete(
     { _id: userId }: User,
-    { teamId }: DeleteTeamInput,
+    teamId: string,
   ): Promise<DeleteTeamOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
@@ -99,10 +99,7 @@ export class TeamService {
     }
   }
 
-  async join(
-    { _id: userId }: User,
-    { teamId }: JoinTeamInput,
-  ): Promise<JoinTeamOutput> {
+  async join({ _id: userId }: User, teamId: string): Promise<JoinTeamOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
       if (!findTeam) {
@@ -152,10 +149,7 @@ export class TeamService {
     }
   }
 
-  async leave(
-    { _id: userId }: User,
-    { teamId }: LeaveTeamInput,
-  ): Promise<LeaveTeamOutput> {
+  async leave({ _id: userId }: User, teamId: string): Promise<LeaveTeamOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
       if (!findTeam) {
@@ -200,7 +194,8 @@ export class TeamService {
 
   async changeLeader(
     { _id: userId }: User,
-    { newLeaderId, teamId }: ChangeLeaderInput,
+    teamId: string,
+    { newLeaderId }: ChangeLeaderInput,
   ): Promise<ChangeLeaderOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
@@ -260,7 +255,7 @@ export class TeamService {
 
   async getRaids(
     { _id: userId }: User,
-    { teamId }: GetRaidsInput,
+    teamId: string,
   ): Promise<GetRaidsOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();
@@ -315,7 +310,7 @@ export class TeamService {
 
   async getMembers(
     { _id: userId }: User,
-    { teamId }: GetMembersInput,
+    teamId: string,
   ): Promise<GetMembersOutput> {
     try {
       const findTeam = await this.teamModel.findOne({ _id: teamId }).lean();

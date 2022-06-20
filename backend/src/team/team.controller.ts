@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthUser } from 'src/auth/auth-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { User } from 'src/user/schemas/user.schema';
@@ -7,11 +15,11 @@ import {
   ChangeLeaderOutput,
 } from './dtos/change-leader.dto';
 import { CreateTeamInput, CreateTeamOutput } from './dtos/create-team.dto';
-import { DeleteTeamInput, DeleteTeamOutput } from './dtos/delete-team.dto';
-import { GetMembersInput, GetMembersOutput } from './dtos/get-members.dto';
-import { GetRaidsInput, GetRaidsOutput } from './dtos/get-raids.dto';
-import { JoinTeamInput, JoinTeamOutput } from './dtos/join-team.dto';
-import { LeaveTeamInput, LeaveTeamOutput } from './dtos/leave-team.dto';
+import { DeleteTeamOutput } from './dtos/delete-team.dto';
+import { GetMembersOutput } from './dtos/get-members.dto';
+import { GetRaidsOutput } from './dtos/get-raids.dto';
+import { JoinTeamOutput } from './dtos/join-team.dto';
+import { LeaveTeamOutput } from './dtos/leave-team.dto';
 import { TeamService } from './team.service';
 
 @Controller('team')
@@ -27,57 +35,58 @@ export class TeamController {
     return this.teamService.create(user, createTeamInput);
   }
 
-  @Delete()
+  @Delete(':id')
   @Role(['any'])
   delete(
     @AuthUser() user: User,
-    @Body() deleteTeamInput: DeleteTeamInput,
+    @Param('id') teamId: string,
   ): Promise<DeleteTeamOutput> {
-    return this.teamService.delete(user, deleteTeamInput);
+    return this.teamService.delete(user, teamId);
   }
 
-  @Post('/join')
+  @Post(':id/join')
   @Role(['any'])
   join(
     @AuthUser() user: User,
-    @Body() joinTeamInput: JoinTeamInput,
+    @Param('id') teamId: string,
   ): Promise<JoinTeamOutput> {
-    return this.teamService.join(user, joinTeamInput);
+    return this.teamService.join(user, teamId);
   }
 
-  @Post('/leave')
+  @Post(':id/leave')
   @Role(['any'])
   leave(
     @AuthUser() user: User,
-    @Body() leaveTeamInput: LeaveTeamInput,
+    @Param('id') teamId: string,
   ): Promise<LeaveTeamOutput> {
-    return this.teamService.leave(user, leaveTeamInput);
+    return this.teamService.leave(user, teamId);
   }
 
-  @Patch('/leader')
+  @Patch(':id/leader')
   @Role(['any'])
   changeLeader(
     @AuthUser() user: User,
+    @Param('id') teamId: string,
     @Body() changeLeaderInput: ChangeLeaderInput,
   ): Promise<ChangeLeaderOutput> {
-    return this.teamService.changeLeader(user, changeLeaderInput);
+    return this.teamService.changeLeader(user, teamId, changeLeaderInput);
   }
 
-  @Get('/members')
+  @Get(':id/members')
   @Role(['any'])
   getMembers(
     @AuthUser() user: User,
-    @Body() getMembersInput: GetMembersInput,
+    @Param('id') teamId: string,
   ): Promise<GetMembersOutput> {
-    return this.teamService.getMembers(user, getMembersInput);
+    return this.teamService.getMembers(user, teamId);
   }
 
-  @Get('/raids')
+  @Get(':id/raids')
   @Role(['any'])
   getRaids(
     @AuthUser() user: User,
-    @Body() getRaidsInput: GetRaidsInput,
+    @Param('id') teamId: string,
   ): Promise<GetRaidsOutput> {
-    return this.teamService.getRaids(user, getRaidsInput);
+    return this.teamService.getRaids(user, teamId);
   }
 }
