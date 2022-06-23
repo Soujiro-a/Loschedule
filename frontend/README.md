@@ -1,23 +1,21 @@
-# Next.js + Tailwind CSS Example
+# Loschedule Frontend
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## :calendar: 1. 제작 기간
+- 2022.06.22 ~
+- 개인 프로젝트
 
-## Deploy your own
+## :computer: 2. 사용 기술
+- react : 18.1.0 
+- NextJS : 12.1.6 (latest)
+- redux : 4.2.0
+- react-redux : 8.0.2
+- react-hook-form : 7.32.2
+- tailwindcss : 3.1.2
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## :hammer: 3. 페이지 구성
+![LoschedulePages](https://user-images.githubusercontent.com/68040092/175190675-ca5b1d08-9cf8-4688-8107-c93db46bb3ea.png)
 
-## How to use
+## :dart: 4. 구현 기능
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## :rotating_light: 5. 트러블 슈팅

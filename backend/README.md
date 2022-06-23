@@ -11,10 +11,8 @@
 - 개인 프로젝트
 
 ## :computer: 2. 사용 기술 
-- [nestJS](https://nestjs.com/)
-    - version : 8.2.6
-- [mongoose](https://mongoosejs.com/)
-    - version : 6.3.4
+- nestJS : 8.2.6
+- mongoose : 6.3.4
 - jsonwebtoken
 - bcrypt
 - moment.js
