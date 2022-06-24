@@ -1,9 +1,9 @@
 import Title from "../../../components/Title";
 
-export default function Raids() {
+export default function Raid() {
   return (
     <div>
-      <Title title="Raid List" />
+      <Title title="Raid" />
     </div>
   );
 }

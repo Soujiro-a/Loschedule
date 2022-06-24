@@ -1,9 +1,9 @@
 import Title from "../components/Title";
 
-export default function Teams() {
+export default function Profile() {
   return (
     <div>
-      <Title title="Team List" />
+      <Title title="Profile" />
     </div>
   );
 }

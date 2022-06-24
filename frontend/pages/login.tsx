@@ -4,11 +4,7 @@ import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import FormError from "../components/FormError";
 import Title from "../components/Title";
-
-interface ILoginForm {
-  id: string;
-  password: string;
-}
+import { IUserForm } from "../interface/user";
 
 export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,7 +13,7 @@ export default function Login() {
     getValues,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<ILoginForm>({
+  } = useForm<IUserForm>({
     mode: "onChange",
   });
   const onSubmit = () => {
@@ -29,7 +25,7 @@ export default function Login() {
       <Title title="Login" />
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <h4 className="w-full font-medium text-left text-3xl mb-5">
-          Welcome Loschedule
+          LogIn Loschedule
         </h4>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -50,7 +46,7 @@ export default function Login() {
             <FormError errorMessage={errors.id?.message} />
           )}
           {errors.id?.type === "pattern" && (
-            <FormError errorMessage={"유효한 아이디를 입력해주세요"} />
+            <FormError errorMessage={"6~19자의 아이디를 입력해주세요"} />
           )}
           <input
             {...register("password", {
