@@ -14,7 +14,7 @@
 
 
 ## :hammer: 3. 페이지 구성
-![LoschedulePages](https://user-images.githubusercontent.com/68040092/175190675-ca5b1d08-9cf8-4688-8107-c93db46bb3ea.png)
+![LoschedulePages](https://user-images.githubusercontent.com/68040092/175475392-ccfe52db-d485-455b-83b9-07923a2b92b3.png)
 
 ## :dart: 4. 구현 기능
 
