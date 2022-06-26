@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const store = makeConfiguredStore(persistedReducer);
   const persistor = persistStore(store);
   return (
-    <PersistGate persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <React.Fragment>
         <Layout>
           <Component {...pageProps} />
