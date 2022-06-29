@@ -53,3 +53,19 @@ createAsyncThunk를 통해 '내부적으로 redux-thunk를 지원'한다는 문�
 
 </div>
 </details>
+
+<details>
+<summary>로그인 후 첫페이지로 이동했을 떼 state가 바로 업데이트 되어 보이지 않는 문제</summary>
+<div markdown="1">
+
+```
+isLoggedIn이라는 로그인 상태를 체크하기 위한 redux state를 가지고 있는 상태고,
+/login 페이지에서 loginAction을 통해 백엔드 서버로 로그인 요청을 하고, 로그인 요청이 문제없이 처리됐을 때, isLoggedIn state 값을 변경해주고, 첫페이지로 넘어오게 처리를 만들었다. 그런데, 넘어오자마자 state가 반영되지 않고, 새로고침을 한번 해주어야만 변경된 state가 반영되는 문제가 발생했었다. 
+
+문제 원인을 바로 이야기하자면, getServerSideProps에 있었다.
+getServerSideProps를 호출하면서 초기 상태가 그대로 반영되어버리는 문제가 일어났다.
+그래서, redux-persist를 통해 로그인 요청이 처리된 후의 state값들을 LocalStorage에 저장해놨지만, 처음에 getServerSideProps를 한번 호출하기 때문에 initialstate값이 그대로 반영되어서 나타나는 문제가 발생했다.
+```
+
+</div>
+</details>
