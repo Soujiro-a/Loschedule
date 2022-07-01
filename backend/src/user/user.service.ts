@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { JwtService } from 'src/jwt/jwt.service';
 import { CreateUserInput, CreateUserOutput } from './dtos/create-user.dto';
 import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
-import { searchNicknameOutput } from './dtos/find-by-nickname.dto';
+import { searchNicknameOutput } from './dtos/search-by-nickname.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserProfileOutput } from './dtos/user-profile.dto';
 import { User } from './schemas/user.schema';
