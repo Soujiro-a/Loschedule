@@ -3,6 +3,7 @@ import { AuthUser } from 'src/auth/auth-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { CreateUserInput, CreateUserOutput } from './dtos/create-user.dto';
 import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
+import { searchNicknameOutput } from './dtos/find-by-nickname.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserProfileOutput } from './dtos/user-profile.dto';
 import { User } from './schemas/user.schema';
@@ -40,5 +41,12 @@ export class UserController {
   @Role(['any'])
   me(@AuthUser() user: User) {
     return user;
+  }
+
+  @Get('/search/:nickname')
+  searchNickname(
+    @Param('nickname') nickname: string,
+  ): Promise<searchNicknameOutput> {
+    return this.userService.searchNickname(nickname);
   }
 }

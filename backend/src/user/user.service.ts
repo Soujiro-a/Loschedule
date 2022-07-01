@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { JwtService } from 'src/jwt/jwt.service';
 import { CreateUserInput, CreateUserOutput } from './dtos/create-user.dto';
 import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
+import { searchNicknameOutput } from './dtos/find-by-nickname.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserProfileOutput } from './dtos/user-profile.dto';
 import { User } from './schemas/user.schema';
@@ -119,38 +120,38 @@ export class UserService {
     { _id: userId }: User,
     { nickname, password }: EditUserInput,
   ): Promise<EditUserOutput> {
-    const findUserById = await this.findById(String(userId));
-    if (!findUserById) {
-      return {
-        ok: false,
-        error: '존재하지 않는 유저입니다.',
-      };
-    }
-
-    if (nickname) {
-      if (findUserById.nickname === nickname) {
-        return {
-          ok: false,
-          error: '같은 닉네임으로의 변경은 불가능합니다.',
-        };
-      }
-      const findUserByNickname = await this.findByNickname(nickname);
-      if (findUserByNickname) {
-        return {
-          ok: false,
-          error: '이미 존재하는 닉네임입니다.',
-        };
-      }
-      findUserById.nickname = nickname;
-    }
-
-    if (password) {
-      findUserById.password = password;
-    }
-
-    await findUserById.save();
-
     try {
+      const findUserById = await this.findById(String(userId));
+      if (!findUserById) {
+        return {
+          ok: false,
+          error: '존재하지 않는 유저입니다.',
+        };
+      }
+
+      if (nickname) {
+        if (findUserById.nickname === nickname) {
+          return {
+            ok: false,
+            error: '같은 닉네임으로의 변경은 불가능합니다.',
+          };
+        }
+        const findUserByNickname = await this.findByNickname(nickname);
+        if (findUserByNickname) {
+          return {
+            ok: false,
+            error: '이미 존재하는 닉네임입니다.',
+          };
+        }
+        findUserById.nickname = nickname;
+      }
+
+      if (password) {
+        findUserById.password = password;
+      }
+
+      await findUserById.save();
+
       return {
         ok: true,
       };
@@ -168,5 +169,27 @@ export class UserService {
 
   async findByNickname(nickname: string): Promise<User> {
     return this.userModel.findOne({ nickname });
+  }
+
+  async searchNickname(nickname: string): Promise<searchNicknameOutput> {
+    try {
+      const findUserByNickname = await this.findByNickname(nickname);
+
+      if (!findUserByNickname) {
+        return {
+          ok: false,
+          error: '이미 존재하는 닉네임입니다.',
+        };
+      }
+
+      return {
+        ok: true,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: '유저 검색에 실패하였습니다.',
+      };
+    }
   }
 }
