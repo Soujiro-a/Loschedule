@@ -69,3 +69,18 @@ getServerSideProps를 호출하면서 초기 상태가 그대로 반영되어버
 
 </div>
 </details>
+
+<details>
+<summary>로그인 페이지에서 로그인 시도 시 에러 메시지 타입 에러 문제</summary>
+<div markdown="1">
+
+```
+createAsyncThunk를 통해 만들어준 action에서 백엔드 api호출을 통해 잘못된 값을 받을 경우 reject를 하고, 에러메시지를 반환하도록 설정했다.
+
+처음에 action을 dispatch한 값을 받아보는데 fulfill과 reject 시, meta 프로퍼티에 requestStatus 값이 달랐고, 해당 값들을 이용해 분기를 나누어 비밀번호가 불일치(reject)할 시에는 errorMessage를 띄워주려고했다. 내가 구현하고자 했던 바는 구현이 됐지만, 타입 에러가 발생했다.
+
+그래서, 구글링 한 결과, RTK 공식 Docs createAsyncThunk 하단에 예시에서는 requestStatus값을 직접 비교하는게 아닌, 각 액션에 fulfill 프로퍼티에 match함수안에 dispatch한 값을 넣어주면서 fulfill됐을 경우를 체크하고 있었고, 똑같은 구조로 바꾼 결과 타입 에러를 없앨 수 있었다.
+```
+
+</div>
+</details>
