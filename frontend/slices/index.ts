@@ -13,10 +13,12 @@ export interface IState {
 const rootReducer = (state: IState | undefined, action: AnyAction) => {
   switch (action.type) {
     case HYDRATE:
-      console.log("HYDRATE");
-      return action.payload;
+      return { ...state, ...action.payload };
     default:
-      const combineReducer = combineReducers({ users, teams });
+      const combineReducer = combineReducers({
+        users: users.reducer,
+        teams: teams.reducer,
+      });
       return combineReducer(state, action);
   }
 };
