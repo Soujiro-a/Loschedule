@@ -11,6 +11,7 @@
 - react-redux : 8.0.2
 - react-hook-form : 7.32.2
 - tailwindcss : 3.1.2
+- tailwind-elements : 1.0.0-alpha12
 
 
 ## :hammer: 3. 페이지 구성
