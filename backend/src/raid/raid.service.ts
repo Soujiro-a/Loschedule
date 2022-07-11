@@ -226,10 +226,6 @@ export class RaidService {
           error: '팀에 속해있는 멤버들만 조회가 가능한 정보입니다.',
         };
       }
-
-      return {
-        ok: true,
-      };
     } catch {
       return {
         ok: false,
