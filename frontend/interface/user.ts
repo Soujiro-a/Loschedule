@@ -13,7 +13,7 @@ export type OutputLoginUserType = {
   nickname?: string;
 } | null;
 
-export interface IUserForm {
+export interface ICreateUserForm {
   id: string;
   password: string;
 }
