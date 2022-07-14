@@ -1,24 +1,44 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { logInAction } from "../actions/users";
 import Button from "../components/Button";
 import FormError from "../components/FormError";
 import Title from "../components/Title";
-import { IUserForm } from "../interface/user";
+import { useAppDispatch } from "../hooks/useAppDispatch";
+import { ICreateUserForm } from "../interface/user";
 
 export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const {
     register,
     getValues,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<IUserForm>({
+  } = useForm<ICreateUserForm>({
     mode: "onChange",
   });
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { id, password } = getValues();
-    console.log(id, password);
+
+    setLoading(true);
+    const resultAction = await dispatch(
+      logInAction({ nickname: id, password })
+    );
+    if (logInAction.fulfilled.match(resultAction)) {
+      setErrorMessage(null);
+      setLoading(false);
+      setTimeout(() => {
+        router.replace("/");
+      }, 100);
+    } else {
+      setErrorMessage(resultAction.payload!.errorMessage);
+      setLoading(false);
+    }
   };
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
@@ -34,7 +54,6 @@ export default function Login() {
           <input
             {...register("id", {
               required: "아이디는 필수 입력 항목입니다",
-              pattern: /^[a-z]+[a-z0-9]{5,19}$/g,
             })}
             name="id"
             type="id"
@@ -45,14 +64,9 @@ export default function Login() {
           {errors.id?.message && (
             <FormError errorMessage={errors.id?.message} />
           )}
-          {errors.id?.type === "pattern" && (
-            <FormError errorMessage={"6~19자의 아이디를 입력해주세요"} />
-          )}
           <input
             {...register("password", {
               required: "비밀번호는 필수 입력 항목입니다",
-              //   pattern:
-              //     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
             })}
             name="password"
             type="password"
@@ -64,9 +78,7 @@ export default function Login() {
             <FormError errorMessage={errors.password?.message} />
           )}
           <Button canClick={isValid} loading={loading} actionText={"로그인"} />
-          {/* {loginMutationResult?.login.error && (
-              <FormError errorMessage={loginMutationResult.login.error} />
-            )} */}
+          {errorMessage && <FormError errorMessage={errorMessage} />}
         </form>
         <div>
           Loschedule 사용이 처음이신가요?{" "}
