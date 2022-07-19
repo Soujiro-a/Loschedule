@@ -25,8 +25,7 @@ export class UserService {
           error: '이미 존재하는 닉네임입니다.',
         };
       }
-      const createdUser = new this.userModel(createUserInput);
-      await createdUser.save();
+      await this.userModel.create(createUserInput);
       return {
         ok: true,
       };
