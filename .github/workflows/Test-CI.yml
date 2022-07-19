@@ -11,10 +11,7 @@ on:
 
 jobs:
   backend-test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./backend"
+    runs-on: ubuntu-latest       
     steps:
     - uses: actions/checkout@v3
     - name: Setup node.js 14.x
@@ -24,3 +21,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
+    - working-directory: "./backend"
