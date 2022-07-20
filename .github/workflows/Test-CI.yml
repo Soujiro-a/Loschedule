@@ -14,9 +14,6 @@ jobs:
       run:
         working-directory: ./backend
     steps:
-    - name: shell message
-    - run: echo "github.repository : ${{ github.repository }}"
-
     - name: checkout source code
     - uses: actions/checkout@v3
     
