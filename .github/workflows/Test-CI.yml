@@ -10,7 +10,6 @@ on:
 jobs:
   backend-test:
     runs-on: ubuntu-latest
-    if: ${{github.work_space == '/home/runner/work/'}}
     defaults:
       run:
         working-directory: ./backend
