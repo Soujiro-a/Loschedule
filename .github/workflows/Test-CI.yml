@@ -15,8 +15,8 @@ jobs:
         working-directory: ./backend
     steps:
     - name: shell message
-    - run: echo "github.event_path : ${{github.event_path}}"
-    - run: echo "github.workflow : ${{github.workflow}}"
+    - run: echo "github.event_path : ${{ github.event_path }}"
+    - run: echo "github.workflow : ${{ github.workflow }}"
 
     - name: checkout source code
     - uses: actions/checkout@v3
