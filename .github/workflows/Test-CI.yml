@@ -16,7 +16,6 @@ jobs:
       run:
         working-directory: ./backend
     steps:
-    - name: checkout source code
     - uses: actions/checkout@v3
     
     - name: Setup node.js 14.x
