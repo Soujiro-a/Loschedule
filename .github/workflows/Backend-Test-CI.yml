@@ -7,11 +7,13 @@ on:
   push:
     paths:
       - "./backend/**"
+      - "./.github/Backend-Test-CI.yml"
     branches: [ "main" ]
       
   pull_request:
     paths:
       - "./backend/**"
+      - "./.github/Backend-Test-CI.yml"
     branches: [ "main" ]
       
 
