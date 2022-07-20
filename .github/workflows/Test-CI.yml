@@ -4,15 +4,22 @@
 name: Test CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   backend-test:
-    runs-on: ubuntu-latest       
+    runs-on: ubuntu-latest
+    if: ${{github.work_space == '/home/runner/work/'}}
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
+    - name: shell message
+    - run: echo "github.event_path : ${{github.event_path}}"
+    - run: echo "github.workflow : ${{github.workflow}}"
+
+    - name: checkout source code
     - uses: actions/checkout@v3
     
     - name: Setup node.js 14.x
@@ -24,8 +31,6 @@ jobs:
         
     - name: npm install
       run: npm install
-      working-directory: "./backend"
       
     - name: Start Backend Test
       run: npm test
-      working-directory: "./backend"
