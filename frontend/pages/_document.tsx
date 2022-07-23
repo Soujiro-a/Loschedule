@@ -5,7 +5,7 @@ export default class RootDocument extends Document {
     return (
       <html>
         <Head>
-          <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
+          <script src="../path/to/flowbite/dist/flowbite.js"></script>
           <style global jsx>
             {`
               html,
