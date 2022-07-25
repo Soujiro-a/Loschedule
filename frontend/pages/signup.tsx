@@ -1,24 +1,35 @@
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import FormError from "../components/FormError";
 import Title from "../components/Title";
-import { IUserForm } from "../interface/user";
+import { ICreateUserForm } from "../interface/user";
 
 export default function SignUp() {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const {
     register,
     getValues,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<IUserForm>({
+  } = useForm<ICreateUserForm>({
     mode: "onChange",
   });
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { id, password } = getValues();
-    console.log(id, password);
+
+    setLoading(true);
+    await axios.post(`${process.env.backendUrl}/user`, {
+      nickname: id,
+      password,
+    });
+    setLoading(false);
+
+    router.replace("/login");
   };
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
@@ -34,7 +45,7 @@ export default function SignUp() {
           <input
             {...register("id", {
               required: "아이디는 필수 입력 항목입니다",
-              pattern: /^[a-z]+[a-z0-9]{5,19}$/g,
+              pattern: /^[a-z]+[a-zA-Z0-9]{5,19}$/g,
             })}
             name="id"
             type="id"
@@ -46,7 +57,9 @@ export default function SignUp() {
             <FormError errorMessage={errors.id?.message} />
           )}
           {errors.id?.type === "pattern" && (
-            <FormError errorMessage={"6자 이상의 아이디를 입력해주세요"} />
+            <FormError
+              errorMessage={"소문자로 시작하는 6~19자의 아이디를 입력해주세요"}
+            />
           )}
           <input
             {...register("password", {
