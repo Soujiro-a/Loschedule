@@ -1,4 +1,12 @@
 export interface IUser {
+  _id: string;
+  nickname: string;
+  role: string;
+  characters: string[];
+  teams: string[];
+}
+
+export interface IUserState {
   isLoggedIn: boolean;
   user: OutputLoginUserType;
 }
