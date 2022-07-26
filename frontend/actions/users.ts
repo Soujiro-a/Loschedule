@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser } from "../interface/user";
+import { InputUserType, OutputLoginUserType } from "../interface/user";
+import axios from "axios";
 interface rejectMessage {
   errorMessage: string;
 }
@@ -9,10 +10,23 @@ export const logOutAction = createAsyncThunk(
   async (data, thnukAPI) => {}
 );
 export const logInAction = createAsyncThunk<
-  IUser,
-  any,
+  OutputLoginUserType,
+  InputUserType,
   { rejectValue: rejectMessage }
->("user/logIn", async (data) => {
-  console.log(data, "logIn action");
-  return data;
+>("user/logIn", async (data: InputUserType, { rejectWithValue }) => {
+  const {
+    data: { ok, token, error },
+  }: { data: { ok: boolean; token?: string; error?: string } } =
+    await axios.post(`${process.env.backendUrl}/user/login`, {
+      ...data,
+    });
+
+  if (!ok) {
+    return rejectWithValue({ errorMessage: error! });
+  }
+
+  return {
+    nickname: data.nickname,
+    token: token,
+  };
 });
