@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IState } from ".";
 import { logInAction, logOutAction } from "../actions/users";
 import LocalStorage from "../class/LocalStorage";
-import { IUser } from "../interface/user";
+import { IUserState } from "../interface/user";
 import { PERSIST_ROOT, X_JWT } from "../constants";
-const initialState: IUser = {
+const initialState: IUserState = {
   isLoggedIn: false,
   user: null,
 };
