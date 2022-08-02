@@ -101,4 +101,28 @@ describe('UserService', () => {
       });
     });
   });
+
+  describe('login', () => {
+    it.todo('로그인 성공');
+    describe('로그인 실패', () => {
+      it.todo('존재하지 않는 유저');
+      it.todo('비밀번호 불일치');
+      it.todo('예기치 못한 오류');
+    });
+  });
+
+  describe('getProfile', () => {
+    it.todo('프로필 조회 성공');
+    it.todo('프로필 조회 실패');
+  });
+
+  describe('editProfile', () => {
+    it.todo('프로필 수정 성공');
+    describe('프로필 수정 실패', () => {
+      it.todo('존재하지 않는 유저');
+      it.todo('같은 닉네임으로 변경 시도');
+      it.todo('이미 존재하는 닉네임');
+      it.todo('예기치 못한 오류');
+    });
+  });
 });
