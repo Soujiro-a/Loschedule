@@ -17,4 +17,9 @@ describe('CrawlerService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('scrape', () => {
+    it.todo('스크랩 성공');
+    it.todo('스크랩 실패');
+  });
 });
