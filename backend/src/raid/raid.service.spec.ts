@@ -27,4 +27,41 @@ describe('RaidService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('create', () => {
+    it.todo('레이드 일정 추가 성공');
+    describe('레이드 일정 추가 실패', () => {
+      it.todo('잘못된 캐릭터 정보 입력');
+      it.todo('예기치 못한 오류');
+    });
+  });
+
+  describe('delete', () => {
+    it.todo('레이드 일정 삭제 성공');
+    describe('레이드 일정 삭제 실패', () => {
+      it.todo('존재하지 않는 레이드 일정');
+      it.todo('일정을 추가한 사람과 삭제하려는 사람이 다름');
+      it.todo('예기치 못한 오류');
+    });
+  });
+
+  describe('edit', () => {
+    it.todo('레이드 일정 수정 성공');
+    describe('레이드 일정 수정 실패', () => {
+      it.todo('존재하지 않는 레이드 일정');
+      it.todo('일정을 추가한 사람과 수정하려는 사람이 다름');
+      it.todo('예기치 못한 오류');
+    });
+  });
+
+  describe('get', () => {
+    it.todo('레이드 일정 조회 성공');
+    describe('레이드 일정 조회 실패', () => {
+      it.todo('존재하지 않는 레이드 일정');
+      it.todo('존재하지 않는 팀');
+      it.todo('해당 팀이 가지고 있는 레이드 일정이 아님');
+      it.todo('레이드 일정을 가지고 있는 팀의 멤버가 아님');
+      it.todo('예기치 못한 오류');
+    });
+  });
 });
