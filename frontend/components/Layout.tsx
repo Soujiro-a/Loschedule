@@ -1,12 +1,14 @@
 import { ScriptProps } from "next/script";
-import NavBar from "./Navbar";
+import FooterComponent from "./Footer";
+import NavBarComponent from "./Navbar";
 
 const Layout = ({ children }: ScriptProps) => {
   return (
-    <>
-      <NavBar />
-      <div>{children}</div>
-    </>
+    <div>
+      <NavBarComponent />
+      <main>{children}</main>
+      <FooterComponent />
+    </div>
   );
 };
 
