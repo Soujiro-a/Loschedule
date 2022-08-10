@@ -3,10 +3,10 @@ import { HYDRATE } from "next-redux-wrapper";
 import users from "./users";
 import teams from "./teams";
 import { ITeam } from "../interface/team";
-import { IUser } from "../interface/user";
+import { IUserState } from "../interface/user";
 
 export interface IState {
-  users: IUser;
+  users: IUserState;
   teams: ITeam;
 }
 
