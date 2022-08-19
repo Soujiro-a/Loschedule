@@ -105,9 +105,22 @@ describe('UserService', () => {
   describe('login', () => {
     it.todo('로그인 성공');
     describe('로그인 실패', () => {
+      const loginUserArgs = {
+        nickname: 'testUser',
+        password: '1234',
+      };
       it.todo('존재하지 않는 유저');
       it.todo('비밀번호 불일치');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        userModel.findOne.mockResolvedValue(loginUserArgs);
+
+        const result = await service.login(loginUserArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '로그인에 실패하였습니다.',
+        });
+      });
     });
   });
 
