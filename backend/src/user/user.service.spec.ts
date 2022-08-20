@@ -109,7 +109,16 @@ describe('UserService', () => {
         nickname: 'testUser',
         password: '1234',
       };
-      it.todo('존재하지 않는 유저');
+      it('존재하지 않는 유저', async () => {
+        userModel.findOne.mockResolvedValue(undefined);
+
+        const result = await service.login(loginUserArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '존재하지 않는 유저입니다.',
+        });
+      });
       it.todo('비밀번호 불일치');
       it('예기치 못한 오류', async () => {
         userModel.findOne.mockResolvedValue(loginUserArgs);
