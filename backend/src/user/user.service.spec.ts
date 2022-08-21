@@ -109,6 +109,7 @@ describe('UserService', () => {
         nickname: 'testUser',
         password: '1234',
       };
+
       it('존재하지 않는 유저', async () => {
         userModel.findOne.mockResolvedValue(undefined);
 
@@ -119,7 +120,19 @@ describe('UserService', () => {
           error: '존재하지 않는 유저입니다.',
         });
       });
-      it.todo('비밀번호 불일치');
+      it('비밀번호 불일치', async () => {
+        const mockedUser = {
+          comparePassword: jest.fn(() => Promise.resolve(false)),
+        };
+        userModel.findOne.mockResolvedValue(mockedUser);
+
+        const result = await service.login(loginUserArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '비밀번호가 일치하지 않습니다.',
+        });
+      });
       it('예기치 못한 오류', async () => {
         userModel.findOne.mockResolvedValue(loginUserArgs);
 
