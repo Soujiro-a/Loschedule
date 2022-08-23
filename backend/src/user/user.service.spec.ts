@@ -1,7 +1,12 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CONFIG_OPTIONS } from 'src/common/common.constants';
-import { mockRepository, TEST_KEY } from 'src/common/test.constants';
+import {
+  mockRepository,
+  TEST_KEY,
+  mockJwtService,
+  jwtSignedToken,
+} from 'src/common/test.constants';
 import { JwtService } from 'src/jwt/jwt.service';
 import { CreateUserInput } from './dtos/create-user.dto';
 import { User } from './schemas/user.schema';
@@ -10,6 +15,7 @@ import { UserService } from './user.service';
 describe('UserService', () => {
   let service: UserService;
   let userModel: mockRepository<User>;
+  let jwtService: JwtService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -17,12 +23,16 @@ describe('UserService', () => {
         UserService,
         { provide: getModelToken(User.name), useValue: mockRepository() },
         { provide: CONFIG_OPTIONS, useValue: { privateKey: TEST_KEY } },
-        JwtService,
+        {
+          provide: JwtService,
+          useValue: mockJwtService(),
+        },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
     userModel = module.get(getModelToken(User.name));
+    jwtService = module.get<JwtService>(JwtService);
   });
 
   it('should be defined', () => {
@@ -103,7 +113,25 @@ describe('UserService', () => {
   });
 
   describe('login', () => {
-    it.todo('로그인 성공');
+    const loginUserArgs = {
+      nickname: 'testUser',
+      password: '1234',
+    };
+    it('로그인 성공', async () => {
+      const mockedUser = {
+        comparePassword: jest.fn(() => Promise.resolve(true)),
+      };
+      userModel.findOne.mockResolvedValue(mockedUser);
+
+      const result = await service.login(loginUserArgs);
+
+      expect(jwtService.sign).toHaveBeenCalledTimes(1);
+
+      expect(result).toMatchObject({
+        ok: true,
+        token: jwtSignedToken,
+      });
+    });
     describe('로그인 실패', () => {
       const loginUserArgs = {
         nickname: 'testUser',
