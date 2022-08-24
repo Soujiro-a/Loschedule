@@ -6,6 +6,7 @@ export const jwtSignedToken = 'signed-token';
 export const mockRepository = () => ({
   findOne: jest.fn(),
   create: jest.fn(),
+  aggregate: jest.fn(),
 });
 
 export type mockRepository<T = any> = Partial<
