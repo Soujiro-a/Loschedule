@@ -175,8 +175,18 @@ describe('UserService', () => {
   });
 
   describe('getProfile', () => {
+    const mockNickname = 'test';
     it.todo('프로필 조회 성공');
-    it.todo('프로필 조회 실패');
+    it('프로필 조회 실패', async () => {
+      userModel.aggregate.mockResolvedValue(undefined);
+
+      const result = await service.getProfile(mockNickname);
+
+      expect(result).toMatchObject({
+        ok: false,
+        error: '유저 정보를 불러오는데 실패하였습니다.',
+      });
+    });
   });
 
   describe('editProfile', () => {
