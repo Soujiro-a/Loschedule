@@ -176,7 +176,23 @@ describe('UserService', () => {
 
   describe('getProfile', () => {
     const mockNickname = 'test';
-    it.todo('프로필 조회 성공');
+    const mockUser = {
+      nickname: mockNickname,
+      characters: [],
+      teams: [],
+    };
+    it('프로필 조회 성공', async () => {
+      userModel.aggregate.mockResolvedValue([mockUser]);
+
+      const result = await service.getProfile(mockNickname);
+
+      expect(result).toMatchObject({
+        ok: true,
+        nickname: mockUser.nickname,
+        characters: mockUser.characters,
+        teams: mockUser.teams,
+      });
+    });
     it('프로필 조회 실패', async () => {
       userModel.aggregate.mockResolvedValue(undefined);
 
