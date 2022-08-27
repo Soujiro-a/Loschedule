@@ -125,6 +125,8 @@ describe('UserService', () => {
 
       const result = await service.login(loginUserArgs);
 
+      expect(userModel.findOne).toHaveBeenCalledTimes(1);
+      expect(mockedUser.comparePassword).toHaveBeenCalledTimes(1);
       expect(jwtService.sign).toHaveBeenCalledTimes(1);
 
       expect(result).toMatchObject({
