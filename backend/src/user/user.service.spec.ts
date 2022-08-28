@@ -145,6 +145,8 @@ describe('UserService', () => {
 
         const result = await service.login(loginUserArgs);
 
+        expect(userModel.findOne).toHaveBeenCalledTimes(1);
+
         expect(result).toMatchObject({
           ok: false,
           error: '존재하지 않는 유저입니다.',
