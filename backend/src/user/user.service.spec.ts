@@ -160,6 +160,9 @@ describe('UserService', () => {
 
         const result = await service.login(loginUserArgs);
 
+        expect(userModel.findOne).toHaveBeenCalledTimes(1);
+        expect(mockedUser.comparePassword).toHaveBeenCalledTimes(1);
+
         expect(result).toMatchObject({
           ok: false,
           error: '비밀번호가 일치하지 않습니다.',
