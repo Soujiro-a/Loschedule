@@ -193,6 +193,8 @@ describe('UserService', () => {
 
       const result = await service.getProfile(mockNickname);
 
+      expect(userModel.aggregate).toHaveBeenCalledTimes(1);
+
       expect(result).toMatchObject({
         ok: true,
         nickname: mockUser.nickname,
