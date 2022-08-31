@@ -7,12 +7,12 @@ import { EditUserInput, EditUserOutput } from './dtos/edit-user.dto';
 import { searchNicknameOutput } from './dtos/search-by-nickname.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { UserProfileOutput } from './dtos/user-profile.dto';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -162,7 +162,7 @@ export class UserService {
     }
   }
 
-  async findById(userId: string): Promise<User> {
+  async findById(userId: string): Promise<UserDocument> {
     return this.userModel.findOne({ _id: userId });
   }
 
