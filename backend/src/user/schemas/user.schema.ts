@@ -6,10 +6,12 @@ import bcrypt from 'bcrypt';
 
 export const UserRole = ['user', 'admin'] as const;
 
+export type UserDocument = User & Document;
+
 @Schema({
   timestamps: true,
 })
-export class User extends Document {
+export class User {
   @Transform(({ value }) => value.toString())
   _id: ObjectId;
 
