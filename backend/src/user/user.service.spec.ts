@@ -217,7 +217,21 @@ describe('UserService', () => {
   describe('editProfile', () => {
     it.todo('프로필 수정 성공');
     describe('프로필 수정 실패', () => {
-      it.todo('존재하지 않는 유저');
+      it('존재하지 않는 유저', async () => {
+        const user = new User();
+        const editProfileArgs = {
+          nickname: 'edit',
+          password: '12345',
+        };
+        userModel.findOne.mockResolvedValue(undefined);
+
+        const result = await service.editProfile(user, editProfileArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '존재하지 않는 유저입니다.',
+        });
+      });
       it.todo('같은 닉네임으로 변경 시도');
       it.todo('이미 존재하는 닉네임');
       it.todo('예기치 못한 오류');
