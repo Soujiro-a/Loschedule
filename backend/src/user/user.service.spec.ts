@@ -232,7 +232,23 @@ describe('UserService', () => {
           error: '존재하지 않는 유저입니다.',
         });
       });
-      it.todo('같은 닉네임으로 변경 시도');
+      it('같은 닉네임으로 변경 시도', async () => {
+        const user = new User();
+        const mockNickname = 'test';
+        user.nickname = mockNickname;
+        const editProfileArgs = {
+          nickname: mockNickname,
+          password: '12345',
+        };
+        userModel.findOne.mockResolvedValue(user);
+
+        const result = await service.editProfile(user, editProfileArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '같은 닉네임으로의 변경은 불가능합니다.',
+        });
+      });
       it.todo('이미 존재하는 닉네임');
       it.todo('예기치 못한 오류');
     });
