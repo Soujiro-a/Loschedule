@@ -250,7 +250,22 @@ describe('UserService', () => {
         });
       });
       it.todo('이미 존재하는 닉네임');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const user = new User();
+        user.nickname = 'test';
+        const editProfileArgs = {
+          nickname: 'edit',
+          password: '12345',
+        };
+        userModel.findOne.mockResolvedValueOnce(user);
+
+        const result = await service.editProfile(user, editProfileArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '유저 정보를 갱신하는데 실패하였습니다.',
+        });
+      });
     });
   });
 });
