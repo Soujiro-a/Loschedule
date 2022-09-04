@@ -249,7 +249,22 @@ describe('UserService', () => {
           error: '같은 닉네임으로의 변경은 불가능합니다.',
         });
       });
-      it.todo('이미 존재하는 닉네임');
+      it('이미 존재하는 닉네임', async () => {
+        const user = new User();
+        user.nickname = 'test';
+        const editProfileArgs = {
+          nickname: 'edit',
+          password: '12345',
+        };
+        userModel.findOne.mockResolvedValue(user);
+
+        const result = await service.editProfile(user, editProfileArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '이미 존재하는 닉네임입니다.',
+        });
+      });
       it('예기치 못한 오류', async () => {
         const user = new User();
         user.nickname = 'test';
