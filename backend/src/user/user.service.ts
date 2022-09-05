@@ -166,7 +166,7 @@ export class UserService {
     return this.userModel.findOne({ _id: userId });
   }
 
-  async findByNickname(nickname: string): Promise<User> {
+  async findByNickname(nickname: string): Promise<UserDocument> {
     return this.userModel.findOne({ nickname });
   }
 
