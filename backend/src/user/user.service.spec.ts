@@ -9,12 +9,12 @@ import {
 } from 'src/common/test.constants';
 import { JwtService } from 'src/jwt/jwt.service';
 import { CreateUserInput } from './dtos/create-user.dto';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
-  let userModel: mockRepository<User>;
+  let userModel: mockRepository<UserDocument>;
   let jwtService: JwtService;
 
   beforeEach(async () => {
@@ -215,7 +215,25 @@ describe('UserService', () => {
   });
 
   describe('editProfile', () => {
-    it.todo('프로필 수정 성공');
+    it('프로필 수정 성공', async () => {
+      const user = new User();
+      const editProfileArgs = {
+        nickname: 'edit',
+        password: '12345',
+      };
+
+      jest.spyOn(service, 'editProfile').mockImplementation(() =>
+        Promise.resolve({
+          ok: true,
+        }),
+      );
+
+      const result = await service.editProfile(user, editProfileArgs);
+
+      expect(result).toMatchObject({
+        ok: true,
+      });
+    });
     describe('프로필 수정 실패', () => {
       it('존재하지 않는 유저', async () => {
         const user = new User();
