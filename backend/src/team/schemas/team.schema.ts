@@ -3,8 +3,10 @@ import { Transform } from 'class-transformer';
 import { IsString } from 'class-validator';
 import { Document, ObjectId, SchemaTypes } from 'mongoose';
 
+export type TeamDocument = Team & Document;
+
 @Schema()
-export class Team extends Document {
+export class Team {
   @Transform(({ value }) => value.toString())
   _id: ObjectId;
 
