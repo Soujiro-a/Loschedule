@@ -1,23 +1,30 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockRepository } from 'src/common/test.constants';
-import { User } from 'src/user/schemas/user.schema';
-import { Team } from './schemas/team.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
+import { CreateTeamInput } from './dtos/create-team.dto';
+import { Team, TeamDocument } from './schemas/team.schema';
 import { TeamService } from './team.service';
 
 describe('TeamService', () => {
   let service: TeamService;
+  let userModel: mockRepository<UserDocument>;
+  let teamModel: mockRepository<TeamDocument>;
+  let user: User;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TeamService,
-        { provide: getModelToken(Team.name), useValue: mockRepository },
-        { provide: getModelToken(User.name), useValue: mockRepository },
+        { provide: getModelToken(Team.name), useValue: mockRepository() },
+        { provide: getModelToken(User.name), useValue: mockRepository() },
       ],
     }).compile();
 
     service = module.get<TeamService>(TeamService);
+    userModel = module.get(getModelToken(User.name));
+    teamModel = module.get(getModelToken(Team.name));
+    user = new User();
   });
 
   it('should be defined', () => {
@@ -27,7 +34,17 @@ describe('TeamService', () => {
   describe('create', () => {
     it.todo('팀 생성 성공');
     describe('팀 생성 실패', () => {
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const createTeamArgs: CreateTeamInput = {
+          teamName: 'test',
+        };
+        const result = await service.create(user, createTeamArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '팀 생성에 실패하였습니다.',
+        });
+      });
     });
   });
 
