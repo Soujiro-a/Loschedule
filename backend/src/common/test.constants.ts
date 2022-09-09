@@ -8,6 +8,7 @@ export const mockRepository = () => ({
   create: jest.fn(),
   aggregate: jest.fn(),
   save: jest.fn(),
+  updateOne: jest.fn(),
 });
 
 export type mockRepository<T = any> = Partial<
