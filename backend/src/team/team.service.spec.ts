@@ -32,7 +32,23 @@ describe('TeamService', () => {
   });
 
   describe('create', () => {
-    it.todo('팀 생성 성공');
+    it('팀 생성 성공', async () => {
+      const createTeamArgs: CreateTeamInput = {
+        teamName: 'test',
+      };
+
+      jest.spyOn(service, 'create').mockImplementation(() =>
+        Promise.resolve({
+          ok: true,
+        }),
+      );
+
+      const result = await service.create(user, createTeamArgs);
+
+      expect(result).toMatchObject({
+        ok: true,
+      });
+    });
     describe('팀 생성 실패', () => {
       it('예기치 못한 오류', async () => {
         const createTeamArgs: CreateTeamInput = {
