@@ -67,18 +67,9 @@ describe('TeamService', () => {
   describe('delete', () => {
     it.todo('팀 삭제 성공');
     describe('팀 삭제 실패', () => {
-      it.todo('존재하지 않는 팀');
-      it.todo('팀 삭제를 시도한 사람이 팀 리더가 아님');
-      it.todo('예기치 못한 오류');
-    });
-  });
-
-  describe('join', () => {
-    it.todo('팀 가입 성공');
-    describe('팀 가입 실패', () => {
       const mockTeamId = 'test';
       it.todo('존재하지 않는 팀');
-      it.todo('이미 소속되어있는 팀');
+      it.todo('팀 삭제를 시도한 사람이 팀 리더가 아님');
       it('예기치 못한 오류', async () => {
         const result = await service.delete(user, mockTeamId);
 
@@ -87,6 +78,15 @@ describe('TeamService', () => {
           error: '팀 삭제에 실패하였습니다.',
         });
       });
+    });
+  });
+
+  describe('join', () => {
+    it.todo('팀 가입 성공');
+    describe('팀 가입 실패', () => {
+      it.todo('존재하지 않는 팀');
+      it.todo('이미 소속되어있는 팀');
+      it.todo('예기치 못한 오류');
     });
   });
 
