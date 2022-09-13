@@ -84,9 +84,17 @@ describe('TeamService', () => {
   describe('join', () => {
     it.todo('팀 가입 성공');
     describe('팀 가입 실패', () => {
+      const mockTeamId = 'test';
       it.todo('존재하지 않는 팀');
       it.todo('이미 소속되어있는 팀');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const result = await service.join(user, mockTeamId);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '팀에 합류하는데 실패하였습니다.',
+        });
+      });
     });
   });
 
