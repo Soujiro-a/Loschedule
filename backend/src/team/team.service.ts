@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import {
   ChangeLeaderInput,
   ChangeLeaderOutput,
@@ -12,15 +12,15 @@ import { GetMembersOutput } from './dtos/get-members.dto';
 import { GetRaidsOutput } from './dtos/get-raids.dto';
 import { JoinTeamOutput } from './dtos/join-team.dto';
 import { LeaveTeamOutput } from './dtos/leave-team.dto';
-import { Team } from './schemas/team.schema';
+import { Team, TeamDocument } from './schemas/team.schema';
 
 @Injectable()
 export class TeamService {
   constructor(
     @InjectModel(Team.name)
-    private readonly teamModel: Model<Team>,
+    private readonly teamModel: Model<TeamDocument>,
     @InjectModel(User.name)
-    private readonly userModel: Model<User>,
+    private readonly userModel: Model<UserDocument>,
   ) {}
 
   async create(
