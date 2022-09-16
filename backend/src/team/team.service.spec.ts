@@ -101,10 +101,18 @@ describe('TeamService', () => {
   describe('leave', () => {
     it.todo('팀 탈퇴 성공');
     describe('팀 탈퇴 실패', () => {
+      const mockTeamId = 'test';
       it.todo('존재하지 않는 팀');
       it.todo('팀 리더일 경우(팀 해체만 가능)');
       it.todo('소속되어있지 않은 팀에 대한 탈퇴 요청');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const result = await service.leave(user, mockTeamId);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '팀에서 탈퇴하는데 실패하였습니다.',
+        });
+      });
     });
   });
 
