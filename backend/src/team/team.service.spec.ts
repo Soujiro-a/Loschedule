@@ -119,10 +119,25 @@ describe('TeamService', () => {
   describe('changeLeader', () => {
     it.todo('팀 리더 변경 성공');
     describe('팀 리더 변경 실패', () => {
+      const mockTeamId = 'test';
       it.todo('존재하지 않는 팀');
       it.todo('팀 리더 변경을 시도한 사람이 팀 리더가 아님');
       it.todo('팀 멤버가 아닌 사람에게 팀 리더를 주려고 함');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const changeLeaderArgs = {
+          newLeaderId: 'new',
+        };
+        const result = await service.changeLeader(
+          user,
+          mockTeamId,
+          changeLeaderArgs,
+        );
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '팀 리더 교체에 실패하였습니다.',
+        });
+      });
     });
   });
 
