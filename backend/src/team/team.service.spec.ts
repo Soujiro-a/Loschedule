@@ -144,9 +144,17 @@ describe('TeamService', () => {
   describe('getRaids', () => {
     it.todo('팀 내 레이드 일정 정보 조회 성공');
     describe('팀 내 레이드 일정 정보 조회 실패', () => {
+      const mockTeamId = 'test';
       it.todo('존재하지 않는 팀');
       it.todo('팀 멤버가 아닌 경우');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const result = await service.getRaids(user, mockTeamId);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '레이드 정보들을 불러올 수 없습니다.',
+        });
+      });
     });
   });
 
