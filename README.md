@@ -6,3 +6,7 @@
 - [백엔드](https://github.com/Soujiro-a/Loschedule/tree/main/backend)
     2022.05.20 ~
     **기술 스택** : Node.js / Nest.js / Mongoose
+
+- [프론트엔드](https://github.com/Soujiro-a/Loschedule/tree/main/fronteend)
+    2022.05.20 ~
+    **기술 스택** : Next.js
