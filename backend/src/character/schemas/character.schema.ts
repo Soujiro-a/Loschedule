@@ -3,10 +3,12 @@ import { Transform } from 'class-transformer';
 import { IsNumber, IsString } from 'class-validator';
 import { Document, ObjectId } from 'mongoose';
 
+export type CharacterDocument = Character & Document;
+
 @Schema({
   timestamps: true,
 })
-export class Character extends Document {
+export class Character {
   @Transform(({ value }) => value.toString())
   _id: ObjectId;
 
