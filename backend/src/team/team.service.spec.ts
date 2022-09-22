@@ -127,6 +127,7 @@ describe('TeamService', () => {
         const changeLeaderArgs = {
           newLeaderId: 'new',
         };
+
         const result = await service.changeLeader(
           user,
           mockTeamId,
