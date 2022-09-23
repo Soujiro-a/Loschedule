@@ -3,12 +3,14 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockRepository } from 'src/common/test.constants';
 import { CrawlerService } from 'src/crawler/crawler.service';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { CharacterService } from './character.service';
-import { Character } from './schemas/character.schema';
+import { Character, CharacterDocument } from './schemas/character.schema';
 
 describe('CharacterService', () => {
   let service: CharacterService;
+  let userModel: mockRepository<UserDocument>;
+  let characterModel: mockRepository<CharacterDocument>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,6 +24,8 @@ describe('CharacterService', () => {
     }).compile();
 
     service = module.get<CharacterService>(CharacterService);
+    userModel = module.get(getModelToken(User.name));
+    characterModel = module.get(getModelToken(Character.name));
   });
 
   it('should be defined', () => {
