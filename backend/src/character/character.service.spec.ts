@@ -11,6 +11,7 @@ describe('CharacterService', () => {
   let service: CharacterService;
   let userModel: mockRepository<UserDocument>;
   let characterModel: mockRepository<CharacterDocument>;
+  let user: User;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,6 +27,7 @@ describe('CharacterService', () => {
     service = module.get<CharacterService>(CharacterService);
     userModel = module.get(getModelToken(User.name));
     characterModel = module.get(getModelToken(Character.name));
+    user = new User();
   });
 
   it('should be defined', () => {
