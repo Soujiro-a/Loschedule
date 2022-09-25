@@ -38,7 +38,18 @@ describe('CharacterService', () => {
     it.todo('캐릭터 등록 성공');
     describe('캐릭터 등록 실패', () => {
       it.todo('이미 등록되어있는 캐릭터');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const mockCreateArgs = {
+          characterName: 'test',
+        };
+
+        const result = await service.create(user, mockCreateArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '캐릭터를 추가하는데 실패하였습니다.',
+        });
+      });
     });
   });
 
