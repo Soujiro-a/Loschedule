@@ -57,7 +57,18 @@ describe('CharacterService', () => {
     it.todo('캐릭터 삭제 성공');
     describe('캐릭터 삭제 실패', () => {
       it.todo('등록되어있지 않은 캐릭터');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const mockDeleteArgs = {
+          characterName: 'test',
+        };
+
+        const result = await service.delete(user, mockDeleteArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '캐릭터를 삭제하는데 실패하였습니다.',
+        });
+      });
     });
   });
 
