@@ -76,7 +76,18 @@ describe('CharacterService', () => {
     it.todo('캐릭터 정보 갱신 성공');
     describe('캐릭터 정보 갱신 실패', () => {
       it.todo('등록되어있지 않은 캐릭터');
-      it.todo('예기치 못한 오류');
+      it('예기치 못한 오류', async () => {
+        const mockUpdateArgs = {
+          characterName: 'test',
+        };
+
+        const result = await service.update(mockUpdateArgs);
+
+        expect(result).toMatchObject({
+          ok: false,
+          error: '캐릭터 정보 갱신에 실패하였습니다.',
+        });
+      });
     });
   });
 
