@@ -9,6 +9,7 @@ import { Character, CharacterDocument } from './schemas/character.schema';
 
 describe('CharacterService', () => {
   let service: CharacterService;
+  let crawlerService: CrawlerService;
   let userModel: mockRepository<UserDocument>;
   let characterModel: mockRepository<CharacterDocument>;
   let user: User;
@@ -25,6 +26,7 @@ describe('CharacterService', () => {
     }).compile();
 
     service = module.get<CharacterService>(CharacterService);
+    crawlerService = module.get<CrawlerService>(CrawlerService);
     userModel = module.get(getModelToken(User.name));
     characterModel = module.get(getModelToken(Character.name));
     user = new User();
