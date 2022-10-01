@@ -8,4 +8,4 @@
 
 - [프론트엔드](https://github.com/Soujiro-a/Loschedule/tree/main/fronteend)
     2022.05.20 ~
-    **기술 스택** : Next.js / React.js
+    **기술 스택** : Next.js / React.js / Redux / TailwindCSS
