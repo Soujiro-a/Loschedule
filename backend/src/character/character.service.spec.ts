@@ -94,7 +94,14 @@ describe('CharacterService', () => {
   });
 
   describe('search', () => {
-    it.todo('캐릭터 검색 성공');
+    it('캐릭터 검색 성공', async () => {
+      const mockCharacterName = 'test';
+      const result = await service.search(mockCharacterName);
+
+      expect(result).toMatchObject({
+        ok: true,
+      });
+    });
     describe('캐릭터 검색 실패', () => {
       it.todo('예기치 못한 오류');
     });
